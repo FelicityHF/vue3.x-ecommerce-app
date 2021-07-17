@@ -16,9 +16,9 @@ export default {
   setup() {
     const router = useRouter();
     const clickToBack = () => {
-      // router.back();
+      router.back();
       // 或者使用router.go(-1)
-      router.go(-1);
+      // router.go(-1);
     };
     return { clickToBack };
   },
@@ -43,6 +43,7 @@ export default {
   &-left,
   &-right {
     width: 44px;
+    color: #666;
   }
   &-center {
     flex: 1;

@@ -3,7 +3,8 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     isLogin: localStorage.getItem('isLogin'),
-    currentUser: localStorage.currentUser
+    currentUser: localStorage.currentUser,
+    cartList: {}
   },
   mutations: {
     userState(state, user) {

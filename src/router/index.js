@@ -101,15 +101,15 @@ const router = createRouter({
 });
 
 // 全局导航守卫
-// router.beforeEach((to, from, next) => {
-//   document.title = to.meta.title;
-//   const { isLogin } = localStorage;
-//   if (!isLogin && (to.name !== 'Login') && (to.name !== 'Register')) {
-//     next({ name: 'Login' });
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to) => {
+  document.title = to.meta.title;
+  // const { isLogin } = localStorage;
+  // if (!isLogin && (to.name !== 'Login') && (to.name !== 'Register')) {
+  //   next({ name: 'Login' });
+  // } else {
+  //   next()
+  // }
+})
 
 
 export default router;

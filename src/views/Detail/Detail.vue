@@ -3,67 +3,42 @@
     <template v-slot:left>&#xe676;</template>
     <template v-slot:default>详情</template>
   </head-nav-bar>
-  <!-- <tab-card
-    v-if="isFixedTabShow"
-    :titles="['概述', '评论', '相似商品']"
-    v-on:changeTab="clickTab"
-  >
-  </tab-card> -->
-  <van-tabs
-    class="detail-tabs"
-    v-model:active="activeTab"
-    v-if="isFixedTabShow"
-  >
-    <van-tab title="概述">
-      <div class="product-details" v-html="detail.details"></div
-    ></van-tab>
-    <van-tab title="评论">
-      <!-- <div
-          class="comments-list"
-          v-for="item in detail.comments"
-          :key="item"
-        ></div> -->
-      评论里没有数据？？/
-    </van-tab>
-    <van-tab title="相似商品">
-      <product-list v-bind:goodsData="likeGoods"></product-list>
-    </van-tab>
-  </van-tabs>
 
-  <div class="bscroll">
-    <div class="detail-content">
-      <div class="top-section-for-scr" ref="topboxref">
-        <div class="img-wrapper">
-          <img v-lazy="detail.cover_url" alt="" />
-        </div>
-        <div class="product-desc">
-          <p class="price">
-            <i>¥{{ detail.price }}</i>
-            <span class="iconfont collect-icon">&#xe630;</span>
-          </p>
-          <h2 class="product-title">{{ detail.title }}</h2>
-          <p class="product-intro">{{ detail.description }}</p>
-        </div>
+  <div class="detail-content">
+    <div class="top-section-for-scr" ref="topboxref">
+      <div class="img-wrapper">
+        <img v-lazy="detail.cover_url" alt="" />
       </div>
-      <!-- <tab-card :titles="['概述', '评论', '相似商品']" v-on:changeTab="clickTab">
-    </tab-card> -->
-      <van-tabs class="detail-tabs" v-model:active="activeTab">
-        <van-tab title="概述">
-          <div class="product-details" v-html="detail.details"></div
-        ></van-tab>
-        <van-tab title="评论">
-          <!-- <div
+      <div class="product-desc">
+        <p class="price">
+          <i>¥{{ detail.price }}</i>
+          <span class="iconfont collect-icon">&#xe630;</span>
+        </p>
+        <h2 class="product-title">{{ detail.title }}</h2>
+        <p class="product-intro">{{ detail.description }}</p>
+      </div>
+    </div>
+
+    <van-tabs
+      class="detail-tabs"
+      v-model:active="activeTab"
+      style="position: unset"
+    >
+      <van-tab title="概述">
+        <div class="product-details" v-html="detail.details"></div
+      ></van-tab>
+      <van-tab title="评论">
+        <!-- <div
           class="comments-list"
           v-for="item in detail.comments"
           :key="item"
         ></div> -->
-          评论里没有数据？？/
-        </van-tab>
-        <van-tab title="相似商品">
-          <product-list v-bind:goodsData="likeGoods"></product-list>
-        </van-tab>
-      </van-tabs>
-    </div>
+        评论里没有数据？？/
+      </van-tab>
+      <van-tab title="相似商品">
+        <product-list v-bind:goodsData="likeGoods"></product-list>
+      </van-tab>
+    </van-tabs>
   </div>
   <action-bar></action-bar>
 </template>
@@ -75,7 +50,6 @@ import ProductList from "../../components/content/goods/productList.vue";
 import { useRoute } from "vue-router";
 import { ref, reactive, toRefs, onMounted } from "vue";
 import { getDetailData } from "@/network/detail.js";
-import BScroll from "@better-scroll/core";
 
 export default {
   name: "Detail",
@@ -88,52 +62,20 @@ export default {
     });
     // 固定的tab
     let activeTab = ref(0);
-
-    let bscroll = reactive({});
-    let isFixedTabShow = ref(false);
-    let topboxref = ref(null);
-
-    // 切换tab
-    // const clickTab = (index) => {
-    //   let tabs = ["detail", "comments", "likeGoods"];
-    //   currentType.value = tabs[index.value];
-    // };
-    // const currentTabData = computed(() => {
-    //   return thisGoodsData[currentType.value].list;
-    // });
+    const productId = ref(0);
+    productId.value = route.query.id;
     onMounted(() => {
-      getDetailData(route.query.id).then((res) => {
+      getDetailData(productId.value).then((res) => {
         console.log("getDetailData", res);
         thisGoodsData.detail = res.goods;
         thisGoodsData.likeGoods = res.like_goods;
       });
-
-      //BScroll配置
-      let bscrollDOM = document.querySelector(".bscroll");
-      bscroll = new BScroll(bscrollDOM, {
-        probeType: 3,
-        click: true,
-        scrollY: true,
-      });
-      //触发滚动事件
-      bscroll.on("scroll", (position) => {
-        // console.log("滚动的position", position.y);
-        isFixedTabShow.value = -position.y >= topboxref.value.offsetHeight + 90;
-      });
     });
-    return { ...toRefs(thisGoodsData), activeTab, topboxref, isFixedTabShow };
+    return { ...toRefs(thisGoodsData), activeTab, productId };
   },
 };
 </script>
 <style lang="scss" scoped>
-.bscroll {
-  position: absolute;
-  top: 44px;
-  left: 0;
-  right: 0;
-  bottom: 50px;
-  overflow: hidden;
-}
 .detail-content {
   margin-top: 44px;
   .img-wrapper {
@@ -168,9 +110,11 @@ export default {
       }
     }
   }
-  .van-tabs .van-tabs__wrap {
+  .van-tabs .van-tabs__wrap .van-tabs__nav {
     position: sticky;
     top: 0;
+    z-index: 99;
+    background-color: red;
   }
 }
 </style>

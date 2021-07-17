@@ -5,7 +5,7 @@
       <template v-slot:default>
         <input class="head-nav-searchbox" type="search" placeholder="理发器" />
       </template>
-      <template v-slot:right>登录</template>
+      <template v-slot:right>&#xe679;</template>
     </head-nav-bar>
     <tab-card
       v-if="isFixedTabShow"
