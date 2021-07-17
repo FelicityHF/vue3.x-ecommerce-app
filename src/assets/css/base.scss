@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'iconfont';  /* Project id 2667025 */
+  src: url('//at.alicdn.com/t/font_2667025_70ia40mep5w.woff2?t=1626490360003') format('woff2'),
+       url('//at.alicdn.com/t/font_2667025_70ia40mep5w.woff?t=1626490360003') format('woff'),
+       url('//at.alicdn.com/t/font_2667025_70ia40mep5w.ttf?t=1626490360003') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  /* 方正字体 */
+  font-family: "PingFangSCRegular";
+  src: url("../fonts/PingFangSCRegular.ttf") format("truetype");
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-family: "PingFangSCRegular";
+  user-select: none;
+}
+input {
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+textarea {
+  border: none;
+  outline: none;
+}
+button {
+  border: none;
+  outline: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+}
+//解决端遮罩层穿透
+body.dialog-open {
+  position: fixed;
+  width: 100%;
+}
+img{
+  width: 100%;
+}
