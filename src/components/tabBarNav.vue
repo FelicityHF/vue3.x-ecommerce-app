@@ -1,10 +1,31 @@
 <template>
   <div class="tab-bar-nav">
     <ul class="tab-bar-nav-ul">
-      <li class="tab-bar-nav-ul-li" v-for="item in tabList" :key="item.text">
-        <router-link class="nav-link" :to="item.path">
-          <div class="iconfont tab-bar-nav-icon" v-html="item.icon"></div>
-          {{ item.text }}
+      <div class="child" />
+      <li class="tab-bar-nav-ul-li">
+        <router-link class="nav-link" to="/">
+          <div class="iconfont tab-bar-nav-icon">&#xe674;</div>
+          首页
+        </router-link>
+      </li>
+      <li class="tab-bar-nav-ul-li">
+        <router-link class="nav-link" to="/category">
+          <div class="iconfont tab-bar-nav-icon">&#xe675;</div>
+          分类
+        </router-link>
+      </li>
+      <li class="tab-bar-nav-ul-li">
+        <router-link class="nav-link" to="/cart">
+          <van-badge :content="$store.state.cartCount" max="99">
+            <div class="iconfont tab-bar-nav-icon">&#xe992;</div>
+            购物车
+          </van-badge>
+        </router-link>
+      </li>
+      <li class="tab-bar-nav-ul-li">
+        <router-link class="nav-link" to="/profile">
+          <div class="iconfont tab-bar-nav-icon">&#xe99e;</div>
+          我的
         </router-link>
       </li>
     </ul>
@@ -13,15 +34,7 @@
 <script>
 export default {
   name: "tabBarNav",
-  setup() {
-    const tabList = [
-      { path: "/", text: "首页", icon: "&#xe674;" },
-      { path: "/category", text: "分类", icon: "&#xe675;" },
-      { path: "/cart", text: "购物车", icon: "&#xe992;" },
-      { path: "/profile", text: "我的", icon: "&#xe99e;" },
-    ];
-    return { tabList };
-  },
+  setup() {},
 };
 </script>
 <style lang="scss" scoped>
@@ -45,7 +58,6 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        // display: block;
         width: 100%;
         height: 100%;
         text-align: center;

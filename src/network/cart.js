@@ -9,7 +9,7 @@ export function addCart(data) {
     })
 }
 
-//改变购物车商品数量
+//改变购物车商品数量 data = {num: 1}
 export function modifyCart(id, data) {
     return request({
         url: `/api/carts/${id}`,

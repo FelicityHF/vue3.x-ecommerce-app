@@ -93,6 +93,28 @@ const routes = [
       title: '注册'
     }
   },
+  {
+    path: "/address",
+    name: "Address",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/Profile/Address.vue"
+      ),
+    meta: {
+      title: '地址管理'
+    }
+  },
+  {
+    path: "/addaddress",
+    name: "AddAddress",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/Profile/AddAddress.vue"
+      ),
+    meta: {
+      title: '新增地址'
+    }
+  },
 ];
 
 const router = createRouter({

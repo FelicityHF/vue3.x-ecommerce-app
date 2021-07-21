@@ -25,7 +25,7 @@
     </div>
     <ul class="usercenter-menu-list">
       <li class="usercenter-menu" v-for="item in menuLists" :key="item.text">
-        <a href="">
+        <router-link :to="item.path" href="">
           <div class="usercenter-menu-left">
             <span
               class="iconfont usercenter-menu-icon"
@@ -35,7 +35,7 @@
             {{ item.text }}
           </div>
           <span class="iconfont next-arrow">&#xe62f;</span>
-        </a>
+        </router-link>
       </li>
     </ul>
 
@@ -95,26 +95,31 @@ export default {
         menuicon: "&#xe617;",
         text: "我的订单",
         backgroundColor: { background: "#ed4a47" },
+        path: "/address",
       },
       {
         menuicon: "&#xe61f;",
         text: "我的收藏",
         backgroundColor: { background: "#32c5ff" },
+        path: "/address",
       },
       {
         menuicon: "&#xe635;",
         text: "账号管理",
         backgroundColor: { background: "#9013fe" },
+        path: "/address",
       },
       {
         menuicon: "&#xe61f;",
         text: "地址管理",
         backgroundColor: { background: "#9013fe" },
+        path: "/address",
       },
       {
         menuicon: "&#xe635;",
         text: "客服与帮助",
         backgroundColor: { background: "#9013fe" },
+        path: "/address",
       },
     ];
     return { clickToLogout, isLogin, currentUser, menuLists };

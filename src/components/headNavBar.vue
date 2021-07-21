@@ -27,6 +27,7 @@ export default {
 <style lang="scss" scoped>
 .head-nav-bar {
   position: fixed;
+  z-index: 99;
   top: 0;
   left: 0;
   right: 0;

@@ -102,7 +102,7 @@ export default {
     onMounted(() => {
       getHomeAllData()
         .then((res) => {
-          console.log("请求首页所有的数据", res);
+          // console.log("请求首页所有的数据", res);
           bannerSlideData.value = res.slides;
           console.log(bannerSlideData);
           recommendData.value = res.goods.data;
@@ -162,7 +162,7 @@ export default {
 
     // backtotop
     const clickBackTop = () => {
-      console.log("回到顶部");
+      // console.log("回到顶部");
       bscroll.scrollTo(0, 0, 500);
     };
 

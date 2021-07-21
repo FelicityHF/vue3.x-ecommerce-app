@@ -13,7 +13,7 @@
 </template>
 <script>
 import { useRouter, useRoute } from "vue-router";
-import { useStore } from "axios";
+import { useStore } from "vuex";
 import { Toast } from "vant";
 import { addCart } from "@/network/cart.js";
 export default {
@@ -22,7 +22,7 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const productId = route.query.id;
-    // const store = useStore();
+    const store = useStore();
 
     //加入购物车
     const clickToCart = () => {
@@ -36,6 +36,7 @@ export default {
         if (res.status === 204 || res.status === 201) {
           //同步购物车数据到vuex
           // store.commit("addToCart");
+          store.dispatch("updateCart");
 
           //提示加入成功
           Toast.success("加入成功");
@@ -55,6 +56,7 @@ export default {
         if (res.status === 204 || res.status === 201) {
           //同步购物车数据到vuex
           // store.commit("addToCart");
+          store.dispatch("updateCart");
           router.push({ path: "/cart" });
         }
       });
