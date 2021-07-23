@@ -1,11 +1,11 @@
 <template>
-  <router-view />
+  <!-- <router-view /> -->
   <!-- 有条件的缓存 -->
-  <!-- <router-view v-slot="{ Component }">
-    <keep-alive exclude="Detail">
+  <router-view v-slot="{ Component }">
+    <keep-alive :exclude="['OrderDetail', 'Detail']">
       <component :is="Component" />
     </keep-alive>
-  </router-view> -->
+  </router-view>
   <tab-bar-nav v-if="isShowNav"></tab-bar-nav>
 </template>
 <script>

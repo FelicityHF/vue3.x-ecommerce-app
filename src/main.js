@@ -7,7 +7,7 @@ import "./assets/css/base.scss";
 import {
   Swipe, SwipeItem, Lazyload, Badge, Tab, Tabs, Sidebar, SidebarItem, Card, Collapse,
   CollapseItem, ActionBar, ActionBarIcon, ActionBarButton, Form, Field, CellGroup, Button,
-  Checkbox, CheckboxGroup, Stepper, SwipeCell, AddressList, AddressEdit
+  Checkbox, CheckboxGroup, Stepper, SwipeCell, AddressList, AddressEdit, SubmitBar
 } from 'vant';
 
 createApp(App)
@@ -39,4 +39,5 @@ createApp(App)
   .use(SwipeCell)
   .use(AddressList)
   .use(AddressEdit)
+  .use(SubmitBar)
   .mount("#app");

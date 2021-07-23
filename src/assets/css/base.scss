@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'iconfont';  /* Project id 2667025 */
-  src: url('//at.alicdn.com/t/font_2667025_70ia40mep5w.woff2?t=1626490360003') format('woff2'),
-       url('//at.alicdn.com/t/font_2667025_70ia40mep5w.woff?t=1626490360003') format('woff'),
-       url('//at.alicdn.com/t/font_2667025_70ia40mep5w.ttf?t=1626490360003') format('truetype');
+  src: url('//at.alicdn.com/t/font_2667025_b3omyb7v8hf.woff2?t=1626946154208') format('woff2'),
+       url('//at.alicdn.com/t/font_2667025_b3omyb7v8hf.woff?t=1626946154208') format('woff'),
+       url('//at.alicdn.com/t/font_2667025_b3omyb7v8hf.ttf?t=1626946154208') format('truetype');
 }
 
 .iconfont {
@@ -67,4 +67,9 @@ p{
 }
 i{
   font-style: normal;
+}
+
+.van-button--danger{
+  background-color: green;
+  border: none;
 }

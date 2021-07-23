@@ -1,8 +1,8 @@
 <template>
   <div class="product-list">
     <product-item
-      v-for="item in goodsData"
-      :key="item.title"
+      v-for="(item, index) in goodsData"
+      :key="index"
       v-bind:goodsItem="item"
     ></product-item>
   </div>

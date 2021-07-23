@@ -57,6 +57,16 @@ const routes = [
     }
   },
   {
+    path: "/pay",
+    name: "PayOrder",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Bill/PayOrder.vue"),
+    meta: {
+      title: '支付'
+    }
+  },
+
+  {
     path: "/profile",
     name: "Profile",
     component: () =>
@@ -113,6 +123,35 @@ const routes = [
       ),
     meta: {
       title: '新增地址'
+    }
+  },
+  {
+    path: "/editaddress",
+    name: "EditAddress",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/Profile/EditAddress.vue"
+      ),
+    meta: {
+      title: '编辑地址'
+    }
+  },
+  {
+    path: "/myorder",
+    name: "MyOrder",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Order/MyOrder.vue"),
+    meta: {
+      title: '我的订单'
+    }
+  },
+  {
+    path: "/orderdetail",
+    name: "OrderDetail",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Order/OrderDetail.vue"),
+    meta: {
+      title: '订单详情'
     }
   },
 ];

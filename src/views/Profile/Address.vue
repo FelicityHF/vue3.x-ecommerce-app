@@ -11,11 +11,16 @@
       @add="onAdd"
       @edit="onEdit"
     />
+    <div class="no-address" v-if="isEmptyShow">
+      <div class="iconfont">&#xe60b;</div>
+      你的地址空空如也～
+    </div>
   </div>
 </template>
 <script>
 import headNavBar from "@/components/headNavBar.vue";
-import { ref } from "vue";
+import { getAddressList } from "@/network/address.js";
+import { onMounted, reactive, ref, toRefs } from "vue";
 import { Toast } from "vant";
 import { useRouter } from "vue-router";
 export default {
@@ -24,32 +29,38 @@ export default {
   setup() {
     const router = useRouter();
     const chosenAddressId = ref("1");
-    const list = [
-      {
-        id: "1",
-        name: "张三",
-        tel: "13000000000",
-        address: "浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室",
-        isDefault: true,
-      },
-      {
-        id: "2",
-        name: "李四",
-        tel: "1310000000",
-        address: "浙江省杭州市拱墅区莫干山路 50 号",
-      },
-    ];
+    const state = reactive({
+      list: [],
+    });
+    const isEmptyShow = ref(false);
+    onMounted(() => {
+      getAddressList().then((res) => {
+        console.log(res);
+        if (!res.data.length) isEmptyShow.value = true;
+        state.list = res.data;
+        state.list.map((item) => {
+          item.address = item.province + item.city + item.county + item.address;
+          item.tel = item.phone;
+          item.isDefault = item.is_default;
+        });
+      });
+    });
 
     const onAdd = () => {
       router.push({ path: "/addaddress" });
     };
-    const onEdit = (item, index) => Toast("编辑地址:" + index);
+    const onEdit = (item) => {
+      console.log("编辑地址入口", item);
+      const id = item.id;
+      router.push({ path: "/editaddress", query: { id } });
+    };
 
     return {
-      list,
+      ...toRefs(state),
       onAdd,
       onEdit,
       chosenAddressId,
+      isEmptyShow,
     };
   },
 };
@@ -57,7 +68,17 @@ export default {
 <style lang="scss" scoped>
 .address-content {
   margin-top: 44px;
-  min-height: 100vh;
-  background-color: #f5f5f5;
+  .van-address-list__bottom {
+    .van-button {
+      background-color: green;
+    }
+  }
+  .no-address {
+    text-align: center;
+    .iconfont {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+  }
 }
 </style>

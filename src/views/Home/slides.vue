@@ -1,7 +1,7 @@
 <template>
   <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
     <van-swipe-item v-for="item in bannerSlideData" :key="item.id">
-      <a class="banner-link" :href="item.url">
+      <a class="banner-link" href="javascript:;">
         <img alt="" v-lazy="item.img_url" />
       </a>
     </van-swipe-item>

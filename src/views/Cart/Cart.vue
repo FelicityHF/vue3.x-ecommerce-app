@@ -52,7 +52,7 @@
       <div class="totoal-amount">
         合计：<i class="amount">¥{{ getTotalAmount }}</i>
       </div>
-      <router-link class="bill-link" to="/bill">去结算</router-link>
+      <a class="bill-link" @click="onSubmit">去结算</a>
     </div>
   </div>
 </template>
@@ -68,6 +68,7 @@ import {
 // import { useStore } from "vuex";
 import { Toast } from "vant";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   name: "Cart",
@@ -75,6 +76,7 @@ export default {
   setup() {
     // const { checked, checkboxGroup, changeAll, allChecked } = useChooseCart();
     const store = useStore();
+    const router = useRouter();
     //购物车数据模型
     const state = reactive({
       list: [],
@@ -113,6 +115,7 @@ export default {
             item.num = count;
           }
         });
+        store.dispatch("updateCart");
         Toast.clear();
       });
     };
@@ -151,9 +154,15 @@ export default {
 
     //删除
     const deleteItem = (id) => {
-      removeCartItem(id);
-      init();
-      store.dispatch("updateCart");
+      removeCartItem(id).then(() => {
+        init(); //重新初始化购物车列表
+        store.dispatch("updateCart"); //更新到vuex中
+      });
+    };
+
+    const onSubmit = () => {
+      if (state.checked.length) router.push({ path: "/bill" });
+      else Toast("请选择要购买的商品");
     };
 
     return {
@@ -163,6 +172,7 @@ export default {
       updateCart,
       getTotalAmount,
       deleteItem,
+      onSubmit,
     };
   },
 };

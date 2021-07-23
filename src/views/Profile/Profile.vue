@@ -18,7 +18,7 @@
           >登录</router-link
         >
         <div class="current-user-name" v-show="isLogin">
-          {{ currentUser }}
+          {{ user.name }}
         </div>
         <span class="personal-intro" v-show="isLogin">个人简介 .....</span>
       </div>
@@ -54,18 +54,31 @@
 <script>
 import headNavBar from "@/components/headNavBar.vue";
 import HeadNavBar from "../../components/headNavBar.vue";
-import { logout } from "@/network/user.js";
+import { logout, getUser } from "@/network/user.js";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import { useStore } from "vuex";
-import { toRefs } from "vue";
+import { toRefs, onMounted, reactive } from "vue";
 export default {
   name: "Profile",
   components: { headNavBar },
   setup() {
     const router = useRouter();
     const store = useStore();
-    const { isLogin, currentUser } = toRefs(store.state);
+    const { isLogin } = toRefs(store.state);
+
+    const state = reactive({
+      user: {},
+    });
+
+    //获取用户信息
+    onMounted(() => {
+      getUser().then((res) => {
+        console.log("getuser", res);
+        state.user = res;
+      });
+    });
+
     // const currentUser = toRefs(store.state);
     const clickToLogout = () => {
       logout().then((res) => {
@@ -76,8 +89,6 @@ export default {
           //清除localStorage里的token，直接删除和改成空的效果是一样的把？
           localStorage.setItem("token", "");
           localStorage.setItem("isLogin", "");
-          localStorage.setItem("currentUser", "");
-
           //同步状态到vuex
           store.commit("userState", "");
 
@@ -95,7 +106,7 @@ export default {
         menuicon: "&#xe617;",
         text: "我的订单",
         backgroundColor: { background: "#ed4a47" },
-        path: "/address",
+        path: "/myorder",
       },
       {
         menuicon: "&#xe61f;",
@@ -122,7 +133,7 @@ export default {
         path: "/address",
       },
     ];
-    return { clickToLogout, isLogin, currentUser, menuLists };
+    return { clickToLogout, isLogin, menuLists, ...toRefs(state) };
   },
 };
 HeadNavBar;
